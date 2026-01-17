@@ -151,14 +151,13 @@ img {
 }
 
 .logo {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
 }
 
-.logo .dot {
-    color: var(--color-accent);
+.logo img {
+    height: 48px;
+    width: auto;
 }
 
 .nav-links {
@@ -551,13 +550,13 @@ img {
 }
 
 .footer-logo {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
 }
 
-.footer-logo .dot {
-    color: var(--color-accent);
+.footer-logo img {
+    height: 40px;
+    width: auto;
 }
 
 .footer-social {
@@ -768,7 +767,8 @@ img {
 }
 
 .pricing-card.featured {
-    background-color: #FAFCFE; /* Very slight subtle tint */
+    background-color: #FAFCFE;
+    /* Very slight subtle tint */
     border-color: var(--color-accent);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
@@ -872,7 +872,7 @@ img {
         width: 95%;
         max-height: 85vh;
     }
-    
+
     .pricing-grid {
         grid-template-columns: 1fr;
     }
