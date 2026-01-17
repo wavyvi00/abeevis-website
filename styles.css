@@ -453,22 +453,56 @@ img {
 }
 
 /* Work Section */
+/* Work Section */
 .work-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
 }
 
-.work-item.feature {
-    grid-column: 1 / -1;
+/* Removed .work-item.feature to make all items equal size */
+
+.work-item {
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    /* Ensure link doesn't have underline */
+    color: inherit;
+    /* Inherit text color */
+    display: block;
+    /* Ensure it behaves like a block element */
+}
+
+.work-item:hover {
+    transform: translateY(-5px);
 }
 
 .work-visual {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color: #eee;
+    aspect-ratio: 16 / 10;
+    background-color: #f5f5f5;
     margin-bottom: var(--spacing-sm);
-    border-radius: 4px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.work-item:hover .work-visual {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.work-visual img {
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    /* Ensure top of website is seen */
+}
+
+.work-item:hover .work-visual img {
+    transform: scale(1.03);
 }
 
 /* Abstract placeholder gradients */
