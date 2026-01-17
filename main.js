@@ -114,6 +114,20 @@ function closePricingModal() {
     }
 }
 
+
+function openStripeCheckout(url) {
+    const width = 600;
+    const height = 800;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+
+    window.open(
+        url,
+        'StripeCheckout',
+        `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+    );
+}
+
 function scrollToContact() {
     closePricingModal();
     const contactSection = document.getElementById('contact');
