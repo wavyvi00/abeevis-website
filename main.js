@@ -94,3 +94,48 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', adjustFooterReveal);
     adjustFooterReveal(); // Initial run
 });
+
+// Pricing Modal Logic
+function openPricingModal() {
+    const modal = document.getElementById('pricingModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        modal.setAttribute('aria-hidden', 'false');
+    }
+}
+
+function closePricingModal() {
+    const modal = document.getElementById('pricingModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        modal.setAttribute('aria-hidden', 'true');
+    }
+}
+
+function scrollToContact() {
+    closePricingModal();
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        // Small delay to allow modal to close smoothly before scrolling starts
+        setTimeout(() => {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+    }
+}
+
+// Close modal when clicking outside content
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('pricingModal');
+    if (e.target === modal) {
+        closePricingModal();
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closePricingModal();
+    }
+});

@@ -70,19 +70,25 @@
                         <h3>Digital Products</h3>
                         <p>End-to-end product design and development, from initial concept to market-ready launch.</p>
                     </div>
-                    <div class="service-card">
+                    <div class="service-card interactive-card" onclick="openPricingModal()">
                         <span class="service-number">02</span>
+                        <h3>Websites</h3>
+                        <p>Professional, high-performance websites. Click to view our simple pricing packages.</p>
+                        <span class="card-action">View Pricing &rarr;</span>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-number">03</span>
+                        <h3>Platforms</h3>
+                        <p>Complex web platforms and dashboards tailored to your specific business logic and workflows.
+                        </p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-number">04</span>
                         <h3>Applications</h3>
                         <p>Native mobile apps and progressive web apps built for performance and user retention.</p>
                     </div>
                     <div class="service-card">
-                        <span class="service-number">03</span>
-                        <h3>Websites & Platforms</h3>
-                        <p>Scalable, high-performance websites and complex web platforms tailored to your business
-                            logic.</p>
-                    </div>
-                    <div class="service-card">
-                        <span class="service-number">04</span>
+                        <span class="service-number">05</span>
                         <h3>AI Integration</h3>
                         <p>Leveraging artificial intelligence to automate workflows and create smarter user experiences.
                         </p>
@@ -210,6 +216,73 @@
             <p class="copyright">&copy; 2026 Abeevis Studio. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Pricing Modal -->
+    <div id="pricingModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closePricingModal()" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>Choose the model that fits your business stage.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Option 1: Starter -->
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">Most Popular</span>
+                    <h3>Starter Website</h3>
+                    <div class="price-tag">
+                        <span class="amount">$39</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Professional Website Design</li>
+                        <li>Secure Hosting Included</li>
+                        <li>Mobile Optimized</li>
+                        <li>Contact Form Integration</li>
+                        <li>Basic SEO Setup</li>
+                        <li>SSL Certificate</li>
+                        <li>Quarterly Maintenance</li>
+                    </ul>
+                    <p class="pricing-note">Content updates billed separately.</p>
+                    <a href="https://buy.stripe.com/placeholder" class="btn-primary btn-block" target="_blank">Subscribe
+                        Now</a>
+                </div>
+
+                <!-- Option 2: Website + Support -->
+                <div class="pricing-card">
+                    <h3>Website + Support</h3>
+                    <div class="price-tag">
+                        <span class="amount">Custom</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Everything in Starter</li>
+                        <li>Monthly Content Updates</li>
+                        <li>Priority Support</li>
+                        <li>Performance Analytics</li>
+                        <li>Blog/News Section</li>
+                    </ul>
+                    <button onclick="scrollToContact()" class="btn-secondary btn-block">Get Started</button>
+                </div>
+
+                <!-- Option 3: Full Presence -->
+                <div class="pricing-card">
+                    <h3>Full Online Presence</h3>
+                    <div class="price-tag">
+                        <span class="amount">Custom</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Everything in Support</li>
+                        <li>Google Business Profile</li>
+                        <li>Social Media Integration</li>
+                        <li>Local SEO Strategy</li>
+                        <li>Reputation Management</li>
+                    </ul>
+                    <button onclick="scrollToContact()" class="btn-secondary btn-block">Talk to Us</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>

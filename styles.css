@@ -677,7 +677,203 @@ img {
         align-items: center;
         margin-top: 0;
         border-top: none;
-        background-color: #f1f1f1;
-        /* Slightly darker to distinguish "underneath" */
+    }
+}
+
+/* Pricing Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    background-color: var(--color-surface);
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-overlay.active .modal-container {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--color-text-light);
+    line-height: 1;
+    padding: 0.5rem;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    color: var(--color-accent);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    align-items: stretch;
+}
+
+.pricing-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-accent);
+}
+
+.pricing-card.featured {
+    background-color: #FAFCFE; /* Very slight subtle tint */
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-accent);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+}
+
+.pricing-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+.price-tag {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+}
+
+.price-tag .amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+}
+
+.price-tag .period {
+    font-size: 1rem;
+    color: var(--color-text-light);
+}
+
+.pricing-features {
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+}
+
+.pricing-features li {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--color-text-light);
+}
+
+.pricing-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+.pricing-note {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    margin-top: -10px;
+    font-style: italic;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* Service Card Interactive */
+.interactive-card {
+    cursor: pointer;
+}
+
+.card-action {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    transition: padding-left 0.2s;
+}
+
+.interactive-card:hover .card-action {
+    padding-left: 5px;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .modal-container {
+        padding: var(--spacing-md);
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .pricing-grid {
+        grid-template-columns: 1fr;
     }
 }
