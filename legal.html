@@ -17,6 +17,49 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .legal-content h2 {
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .legal-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .legal-content p,
+        .legal-content li {
+            font-family: var(--font-body);
+            line-height: 1.8;
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+        }
+
+        .legal-content ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .legal-nav {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .legal-nav a {
+            margin-right: 2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .legal-nav a:hover {
+            color: var(--color-accent);
+        }
+    </style>
 </head>
 
 <body>
@@ -27,37 +70,88 @@
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#contact" class="btn-primary">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-        <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 2rem;">Legal Information</h1>
+        <div class="legal-content" style="max-width: 800px; margin: 0 auto;">
+            <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 1rem;">Legal Information</h1>
 
-        <div style="max-width: 800px;">
-            <section style="margin-bottom: 3rem;">
-                <h2>Terms of Service</h2>
-                <p>Last updated: January 2026</p>
-                <p>By using Abeevis services, you agree to these terms. We provide digital design, development, and
-                    maintenance services as described in your specific service agreement or plan subscription.</p>
-                <p><strong>Payments:</strong> Recurring subscriptions for website packages are billed monthly. You may
-                    cancel at any time with 30 days notice.</p>
-                <p><strong>Ownership:</strong> Upon full payment, you own the rights to the visual design and content
-                    created for your project. Underlying code libraries remain the property of their respective owners.
-                </p>
+            <div class="legal-nav">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+            </div>
+
+            <section id="privacy">
+                <h2>Privacy Policy</h2>
+                <p><strong>Effective Date:</strong> January 17, 2026</p>
+
+                <p>At Abeevis ("we", "us", or "our"), we respect your privacy and are committed to protecting it through
+                    our compliance with this policy. This policy describes the types of information we may collect from
+                    you or that you may provide when you visit the website abeevis.com (our "Website") and our practices
+                    for collecting, using, maintaining, protecting, and disclosing that information.</p>
+
+                <h3>1. Information We Collect</h3>
+                <p>We collect information you provide directly to us, such as when you fill out a contact form,
+                    subscribe to a service, or communicate with us via email. This may include:</p>
+                <ul>
+                    <li>Name and contact details (email, phone number).</li>
+                    <li>Business information and project requirements.</li>
+                    <li>Payment information (processed securely through Stripe; we do not store full credit card
+                        numbers).</li>
+                </ul>
+
+                <h3>2. How We Use Your Information</h3>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Provide, maintain, and improve our services.</li>
+                    <li>Process transactions and send related information, including confirmations and invoices.</li>
+                    <li>Respond to your comments, questions, and requests.</li>
+                </ul>
+
+                <h3>3. Information Sharing</h3>
+                <p>We do not sell, trade, or rent your personal identification information to others. We may share
+                    generic aggregated demographic information not linked to any personal identification information
+                    regarding visitors and users with our business partners and trusted affiliates.</p>
             </section>
 
-            <hr style="border: 0; border-top: 1px solid var(--color-border); margin: 3rem 0;">
+            <hr style="border: 0; border-top: 1px solid var(--color-border); margin: 4rem 0;">
 
-            <section>
-                <h2>Privacy Policy</h2>
-                <p>Last updated: January 2026</p>
-                <p><strong>Data Collection:</strong> We collect only the information necessary to provide our services,
-                    such as your name, email, and project details. We do not sell your data.</p>
-                <p><strong>Cookies:</strong> This website uses minimal cookies to ensure functionality and analyze
-                    traffic to improve our services.</p>
-                <p><strong>Contact:</strong> For privacy concerns, please contact hello@abeevis.com.</p>
+            <section id="terms">
+                <h2>Terms of Service</h2>
+                <p><strong>Effective Date:</strong> January 17, 2026</p>
+
+                <h3>1. Acceptance of Terms</h3>
+                <p>By accessing or using our website and services, you agree to be bound by these Terms. If you disagree
+                    with any part of the terms, then you may not access the Service.</p>
+
+                <h3>2. Services</h3>
+                <p>Abeevis provides digital design, software development, and website maintenance services. Specific
+                    deliverables, timelines, and costs are outlined in your individual service agreement or selected
+                    subscription plan.</p>
+
+                <h3>3. Subscriptions & Payments</h3>
+                <p><strong>Billing:</strong> Subscription services (e.g., "Starter Website") are billed in advance on a
+                    monthly basis. Payment will be charged to your provided payment method via Stripe.</p>
+                <p><strong>Cancellation:</strong> You may cancel your subscription at any time. Cancellations will take
+                    effect at the end of the current billing cycle. No refunds are provided for partial months.</p>
+
+                <h3>4. Intellectual Property</h3>
+                <p>Unless otherwise agreed in writing, upon full payment for a project, you own the rights to the
+                    specific visual design and content created for you. Abeevis retains the rights to our underlying
+                    code libraries, frameworks, and reusable components.</p>
+
+                <h3>5. Limitation of Liability</h3>
+                <p>In no event shall Abeevis, nor its directors, employees, partners, agents, suppliers, or affiliates,
+                    be liable for any indirect, incidental, special, consequential or punitive damages, including
+                    without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from
+                    your access to or use of or inability to access or use the Service.</p>
+
+                <h3>6. Contact Us</h3>
+                <p>If you have any questions about these Terms, please contact us at <a
+                        href="mailto:wavesparkinc@gmail.com"
+                        style="color: var(--color-accent);">wavesparkinc@gmail.com</a>.</p>
             </section>
         </div>
     </main>
