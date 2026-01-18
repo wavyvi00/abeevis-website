@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights & Blog | Abeevis Studio</title>
+    <meta name="description"
+        content="Expert insights on digital strategy, web design, and AI solutions for forward-thinking businesses.">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png?v=3" alt="Abeevis Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#process">Process</a></li>
+                <li><a href="blog.html" class="active" style="color: var(--color-accent);">Blog</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact" class="btn-primary">Get in Touch</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-label="Menu">
+                <span></span><span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- specific inline style just for this hero to differ from home -->
+        <section class="hero-section" style="min-height: 50vh; align-items: center;">
+            <div class="parallax-bg layer-1" data-speed="0.4"></div>
+            <div class="container hero-content text-center">
+                <span class="eyebrow">Abeevis Insights</span>
+                <h1 class="hero-title">Thoughts on <span class="text-accent">Digital Strategy.</span></h1>
+                <p class="hero-subtitle">Exploring the intersection of creativity, technology, and business growth.</p>
+            </div>
+            <!-- Reusing the bee/hive visual or maybe just simple bg -->
+            <div class="hero-visual parallax-layer" data-speed="0.1" style="opacity: 0.05;"></div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="work-grid">
+                    <!-- Article 1 -->
+                    <a href="blog-social-media.html" class="work-item">
+                        <div class="work-visual" style="background: transparent; height: auto;">
+                            <img src="assets/images/blog-social-media.png" alt="Social Media Connections"
+                                style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <div class="work-info" style="margin-top: 1rem;">
+                            <span
+                                style="font-size: 0.8rem; letter-spacing: 0.1em; color: var(--color-accent); text-transform: uppercase;">Growth</span>
+                            <h3 style="margin-top: 0.5rem;">Expanding Your Social Media Presence</h3>
+                            <p style="text-transform: none; margin-top: 0.5rem; line-height: 1.6;">How to build an
+                                authentic community without chasing algorithms.</p>
+                            <span class="btn-secondary"
+                                style="margin-top: 1rem; padding: 8px 16px; font-size: 0.8rem; display: inline-block;">Read
+                                Article</span>
+                        </div>
+                    </a>
+
+                    <!-- Article 2 -->
+                    <a href="blog-importance-websites.html" class="work-item">
+                        <div class="work-visual" style="background: transparent; height: auto;">
+                            <img src="assets/images/blog-performance.png" alt="High Performance Website Speed"
+                                style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <div class="work-info" style="margin-top: 1rem;">
+                            <span
+                                style="font-size: 0.8rem; letter-spacing: 0.1em; color: var(--color-accent); text-transform: uppercase;">Technology</span>
+                            <h3 style="margin-top: 0.5rem;">Why Your Business Needs a High-Performance Website</h3>
+                            <p style="text-transform: none; margin-top: 0.5rem; line-height: 1.6;">Speed communicates
+                                trust. Why a slow site is costing you customers.</p>
+                            <span class="btn-secondary"
+                                style="margin-top: 1rem; padding: 8px 16px; font-size: 0.8rem; display: inline-block;">Read
+                                Article</span>
+                        </div>
+                    </a>
+
+                    <!-- Article 3 -->
+                    <a href="blog-digital-presence.html" class="work-item">
+                        <div class="work-visual" style="background: transparent; height: auto;">
+                            <img src="assets/images/blog-strategy.png" alt="Digital Strategy and Growth"
+                                style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                        </div>
+                        <div class="work-info" style="margin-top: 1rem;">
+                            <span
+                                style="font-size: 0.8rem; letter-spacing: 0.1em; color: var(--color-accent); text-transform: uppercase;">Strategy</span>
+                            <h3 style="margin-top: 0.5rem;">5 Tips for Business Owners on Digital Presence</h3>
+                            <p style="text-transform: none; margin-top: 0.5rem; line-height: 1.6;">Fundamental pillars
+                                for standing out in a crowded digital marketplace.</p>
+                            <span class="btn-secondary"
+                                style="margin-top: 1rem; padding: 8px 16px; font-size: 0.8rem; display: inline-block;">Read
+                                Article</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter CTA -->
+        <section class="section bg-light text-center">
+            <div class="container">
+                <h2 class="section-title">Stay Updated</h2>
+                <p class="section-subtitle" style="margin-bottom: 2rem;">Get the latest insights delivered to your
+                    inbox.</p>
+                <a href="mailto:wavesparkinc@gmail.com" class="btn-primary">Subscribe via Email</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="assets/images/logo.png?v=3" alt="Abeevis Logo">
+            </div>
+            <ul class="footer-social">
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+            <p class="copyright">&copy; 2026 Abeevis Studio. All rights reserved. <span style="margin: 0 10px;">|</span>
+                <a href="legal.html" style="color: inherit; text-decoration: none;">Legal</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
