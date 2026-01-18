@@ -93,6 +93,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', adjustFooterReveal);
     adjustFooterReveal(); // Initial run
+
+    // Initialize Floating Bees
+    initFloatingBees();
+
+    function initFloatingBees() {
+        const container = document.getElementById('bees-container');
+        if (!container) return;
+
+        const beeCount = 8; // Number of bees
+        const beeSVG = `
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Wings -->
+                <path d="M5 8C5 8 0 4 2 3C4 2 8 6 8 10" fill="currentColor" opacity="0.6"/>
+                <path d="M19 8C19 8 24 4 22 3C20 2 16 6 16 10" fill="currentColor" opacity="0.6"/>
+                <!-- Body -->
+                <ellipse cx="12" cy="12" rx="5" ry="8" fill="currentColor" />
+                <!-- Stripes -->
+                <path d="M8.5 10H15.5" stroke="var(--color-bg)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8.5 13H15.5" stroke="var(--color-bg)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M9.5 16H14.5" stroke="var(--color-bg)" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Antennae -->
+                <path d="M10 5L8 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M14 5L16 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        `;
+
+        for (let i = 0; i < beeCount; i++) {
+            const bee = document.createElement('div');
+            bee.className = 'bee';
+            bee.innerHTML = beeSVG;
+
+            // Random Positioning
+            // Keep them somewhat distributed but random
+            // Left: 5% to 95%
+            // Top: 10% to 90%
+            const left = 5 + Math.random() * 90;
+            const top = 10 + Math.random() * 80;
+
+            // Random scales for depth perception (0.6 to 1.2)
+            const scale = 0.6 + Math.random() * 0.6;
+
+            // Random animation props
+            const duration = 4 + Math.random() * 4; // 4s to 8s
+            const delay = Math.random() * 5; // 0s to 5s
+            // Random rotation start
+            const rotation = Math.random() * 360;
+
+            bee.style.left = `${left}%`;
+            bee.style.top = `${top}%`;
+            bee.style.transform = `scale(${scale})`;
+
+            // Apply animation to SVG
+            const svg = bee.querySelector('svg');
+            if (svg) {
+                if (i >= beeCount - 2) {
+                    // Explorer Bee: Special animation defined in CSS
+                    bee.classList.add('bee-explorer');
+                    svg.style.animation = 'none'; // Clear inline style if any, let CSS class win
+                } else {
+                    // Standard Bee: Random float
+                    const newDuration = 10 + Math.random() * 10;
+                    svg.style.animationDuration = `${newDuration}s`;
+                    svg.style.animationDelay = `-${Math.random() * 20}s`;
+                }
+            }
+
+            container.appendChild(bee);
+        }
+    }
 });
 
 

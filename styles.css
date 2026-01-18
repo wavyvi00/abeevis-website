@@ -288,6 +288,86 @@ img {
     will-change: transform;
 }
 
+/* Floating Bees Animation */
+.bees-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.bee {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    color: var(--color-accent);
+    opacity: 0.5;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+}
+
+.bee svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    animation: float-bee 6s ease-in-out infinite;
+}
+
+@keyframes float-bee {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(10deg);
+    }
+}
+
+/* Explorer Bee (Circles then leaves) */
+.bee-explorer svg {
+    animation: fly-circle-out 20s linear infinite !important;
+    /* Use important to override inline styles if needed, though JS logic handles it */
+}
+
+@keyframes fly-circle-out {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    20% {
+        transform: translate(50px, -50px) rotate(45deg);
+    }
+
+    40% {
+        transform: translate(0, -100px) rotate(180deg);
+    }
+
+    60% {
+        transform: translate(-50px, -50px) rotate(270deg);
+    }
+
+    80% {
+        transform: translate(0, 0) rotate(360deg);
+        opacity: 0.5;
+    }
+
+    90% {
+        transform: translate(100px, -500px) rotate(45deg);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translate(200px, -1000px) rotate(45deg);
+        opacity: 0;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
