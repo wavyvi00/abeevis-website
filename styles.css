@@ -1109,3 +1109,9 @@ img {
     resize: vertical;
     min-height: 120px;
 }
+
+.h-captcha {
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    justify-content: center;
+}
