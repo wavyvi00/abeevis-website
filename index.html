@@ -236,7 +236,27 @@
                     <h2 class="contact-title">Let's build something fundamental.</h2>
                     <p class="contact-text">We are currently accepting new projects for Q2 2026. If you have a vision
                         that requires clarity and structure, we'd love to hear from you.</p>
-                    <a href="mailto:wavesparkinc@gmail.com" class="btn-primary btn-large">wavesparkinc@gmail.com</a>
+
+                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                        <!-- Web3Forms Configuration -->
+                        <input type="hidden" name="access_key" value="05fcf5c4-d650-49b5-aa1a-1e04ad81555d">
+                        <input type="hidden" name="redirect" value="https://abeevis.com/message-sent.html">
+                        <input type="hidden" name="subject" value="New Submission from Abeevis Website">
+                        <input type="hidden" name="from_name" value="Abeevis Contact Form">
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Your Email" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Tell us about your project..." required
+                                class="form-textarea" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-large btn-block">Send Message</button>
+                    </form>
                 </div>
             </div>
         </section>
