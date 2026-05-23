@@ -11,7 +11,14 @@ export default function Header() {
     <header className="site-header">
       <nav className="container">
         <Link href="/" className="logo">
-          <Image src="/assets/images/logo.webp" alt="Abeevis Logo" width={48} height={48} />
+          <Image 
+            src="/assets/images/logo.webp" 
+            alt="Abeevis Logo" 
+            width={48} 
+            height={48} 
+            priority
+            quality={60}
+          />
         </Link>
         <ul
           className="nav-links"

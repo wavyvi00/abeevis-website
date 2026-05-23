@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Lora } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -59,6 +60,30 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-XX4HP1THQ2"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              // Security settings
+              gtag('config', 'G-XX4HP1THQ2', {
+                  'cookie_flags': 'secure;samesite=none',
+                  'anonymize_ip': true,
+                  'allow_google_signals': false,
+                  'allow_ad_personalization_signals': false
+              });
+            `,
+          }}
+        />
       </body>
     </html>
   );

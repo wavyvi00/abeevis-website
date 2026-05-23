@@ -61,24 +61,34 @@ export default function ParallaxController() {
       }
     };
 
-    // Give the DOM a tiny bit of time to settle before measuring
-    setTimeout(() => {
+    const initParallax = () => {
       cacheParallaxPositions();
       adjustFooterReveal();
-    }, 100);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener(
-      "resize",
-      () => {
-        cacheParallaxPositions();
-        onScroll();
-        adjustFooterReveal();
-      },
-      { passive: true }
-    );
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener(
+        "resize",
+        () => {
+          cacheParallaxPositions();
+          onScroll();
+          adjustFooterReveal();
+        },
+        { passive: true }
+      );
+    };
+
+    let idleCallbackId: number;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    if ('requestIdleCallback' in window) {
+      idleCallbackId = requestIdleCallback(initParallax, { timeout: 1000 });
+    } else {
+      timeoutId = setTimeout(initParallax, 300);
+    }
 
     return () => {
+      if (idleCallbackId) cancelIdleCallback(idleCallbackId);
+      if (timeoutId) clearTimeout(timeoutId);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", adjustFooterReveal);
     };
