@@ -8,7 +8,7 @@
     --color-accent: #E8A95E;
     /* Honey/Amber */
     --color-accent-hover: #D48F37;
-    --color-accent-text: #8F540C;
+    --color-accent-text: #7A450A;
     /* Deep gold for high-contrast AAA/AA compliant text elements */
     --color-surface: #FFFFFF;
     --color-border: #E5E5E5;
@@ -102,7 +102,7 @@ img {
 
 /* Typography Utilities */
 .text-accent {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
 }
 
 .text-center {
@@ -188,7 +188,7 @@ img {
 }
 
 .nav-links li a:not(.btn-primary):hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
 }
 
 /* Mobile Menu Toggle */
@@ -698,7 +698,7 @@ img {
 }
 
 .footer-social a:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
 }
 
 .copyright {
@@ -863,7 +863,7 @@ img {
 }
 
 .modal-close:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
 }
 
 .modal-header {
@@ -907,7 +907,7 @@ img {
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-text);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -956,7 +956,7 @@ img {
     content: '✓';
     position: absolute;
     left: 0;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-weight: bold;
 }
 
@@ -1026,7 +1026,7 @@ img {
 }
 
 .icon-check {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-weight: 800;
 }
 
@@ -1054,7 +1054,7 @@ img {
 
 .detail-list li::before {
     content: "•";
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     position: absolute;
     left: 0;
     font-weight: bold;
