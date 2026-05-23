@@ -955,12 +955,7 @@ img {
     font-style: italic;
 }
 
-/* Center Stripe Buy Button */
-.pricing-card stripe-buy-button {
-    display: block;
-    width: 100%;
-    text-align: center;
-}
+
 
 .btn-block {
     display: block;
