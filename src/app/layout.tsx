@@ -41,6 +41,11 @@ export const metadata: Metadata = {
       "We build intelligent digital products, apps, software, and AI-assisted solutions. Digital Clarity. Engineered Creativity.",
     images: ["/assets/images/logo.webp"],
   },
+  icons: {
+    icon: "/assets/images/favicon.png",
+    shortcut: "/assets/images/favicon.png",
+    apple: "/assets/images/favicon.png",
+  },
 };
 
 export default function RootLayout({
