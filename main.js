@@ -46,36 +46,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Parallax Effect Logic
     const parallaxElements = document.querySelectorAll('.parallax-layer, .parallax-bg, .parallax-shape');
+    let parallaxData = [];
+    let isMobile = window.innerWidth <= 768;
 
-    // Only run on desktop/tablet for performance, disable on very small mobile if preferred
-    // For now we run it but rely on CSS media queries to hide heavy elements if needed
+    function cacheParallaxPositions() {
+        isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            // Reset transforms if moving to mobile
+            parallaxElements.forEach(el => {
+                el.style.transform = '';
+            });
+            parallaxData = [];
+            return;
+        }
 
-    function updateParallax() {
-        const scrollY = window.pageYOffset;
-        const windowHeight = window.innerHeight;
-
-        parallaxElements.forEach(el => {
-            const speed = parseFloat(el.getAttribute('data-speed') || 0);
-
-            // Calculate position relative to viewport
-            const rect = el.parentElement.getBoundingClientRect();
-            // We want the effect to be active when the parent section is visible
-            // Standard parallax formula: offset = scroll * speed
-            // Refined: offset based on parent center relative to screen center for localized effect
-
-            const parentTop = rect.top + scrollY;
-            const yPos = (scrollY - parentTop) * speed;
-
-            el.style.transform = `translateY(${yPos}px)`;
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        parallaxData = Array.from(parallaxElements).map(el => {
+            const parent = el.parentElement;
+            const rect = parent.getBoundingClientRect();
+            return {
+                el: el,
+                speed: parseFloat(el.getAttribute('data-speed') || 0),
+                parentTop: rect.top + scrollY
+            };
         });
+    }
 
-        requestAnimationFrame(updateParallax);
+    let scrollTicked = false;
+    function onScroll() {
+        if (isMobile || parallaxData.length === 0) return;
+        if (!scrollTicked) {
+            requestAnimationFrame(() => {
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+                parallaxData.forEach(data => {
+                    const yPos = (scrollY - data.parentTop) * data.speed;
+                    data.el.style.transform = `translateY(${yPos}px)`;
+                });
+                scrollTicked = false;
+            });
+            scrollTicked = true;
+        }
     }
 
     // Initialize Parallax
     if (parallaxElements.length > 0) {
-        requestAnimationFrame(updateParallax);
+        cacheParallaxPositions();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', () => {
+            cacheParallaxPositions();
+            onScroll();
+        }, { passive: true });
     }
+
 
     // Curtain Footer Dynamic Height Adjustment
     const footer = document.querySelector('.site-footer');
@@ -161,6 +183,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
             container.appendChild(bee);
         }
+    }
+
+    // Lazy load contact form scripts (Web3Forms and hCaptcha) to boost initial page speed
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        let scriptsLoaded = false;
+        const loadContactScripts = () => {
+            if (scriptsLoaded) return;
+            scriptsLoaded = true;
+
+            const script = document.createElement('script');
+            script.src = 'https://web3forms.com/client/script.js';
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+
+            // Cleanup
+            observer.disconnect();
+            contactForm.removeEventListener('focusin', loadContactScripts);
+            contactForm.removeEventListener('mouseenter', loadContactScripts);
+            contactForm.removeEventListener('touchstart', loadContactScripts);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    loadContactScripts();
+                }
+            });
+        }, { rootMargin: '200px' });
+
+        observer.observe(contactForm);
+
+        // Fallbacks for keyboard interaction or fast mouse hover
+        contactForm.addEventListener('focusin', loadContactScripts, { passive: true });
+        contactForm.addEventListener('mouseenter', loadContactScripts, { passive: true });
+        contactForm.addEventListener('touchstart', loadContactScripts, { passive: true });
     }
 });
 

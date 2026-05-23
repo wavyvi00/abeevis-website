@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://web3forms.com https://*.hcaptcha.com https://hcaptcha.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.hcaptcha.com https://hcaptcha.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.hcaptcha.com https://hcaptcha.com; connect-src 'self' https://api.web3forms.com https://www.google-analytics.com https://*.hcaptcha.com https://hcaptcha.com; frame-src 'self' https://*.hcaptcha.com https://hcaptcha.com;">
     <title>Expanding Social Media Presence | Abeevis Insights</title>
     <meta name="description"
         content="Learn how to expand your social media presence authentically. Strategies for engagement over algorithms.">
@@ -12,9 +13,11 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
-        rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">
+    </noscript>
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -34,7 +37,8 @@
 
         .blog-meta {
             font-size: 0.9rem;
-            color: var(--color-accent);
+            color: var(--color-accent-text);
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 1rem;
@@ -74,7 +78,7 @@
         }
 
         .back-link:hover {
-            color: var(--color-accent);
+            color: var(--color-accent-text);
         }
     </style>
 </head>
@@ -98,11 +102,11 @@
     <header class="site-header">
         <nav class="container">
             <a href="index.html" class="logo">
-                <img src="assets/images/logo.png?v=3" alt="Abeevis Logo">
+                <img src="assets/images/logo.webp" alt="Abeevis Logo" width="48" height="48">
             </a>
             <ul class="nav-links">
                 <li><a href="index.html#services">Services</a></li>
-                <li><a href="blog.html" class="active" style="color: var(--color-accent);">Blog</a></li>
+                <li><a href="blog.html" class="active" style="color: var(--color-accent-text); font-weight: 600;">Blog</a></li>
                 <li><a href="index.html#contact" class="btn-primary">Get in Touch</a></li>
             </ul>
         </nav>
@@ -119,7 +123,8 @@
             </header>
 
             <div style="margin-bottom: 3rem;">
-                <img src="assets/images/blog-social-media.png" alt="Social Media Connections"
+                <img src="assets/images/blog-social-media.webp" alt="Social Media Connections"
+                    width="1000" height="600"
                     style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 30px rgba(0,0,0,0.08);">
             </div>
 

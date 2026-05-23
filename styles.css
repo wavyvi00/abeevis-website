@@ -8,6 +8,8 @@
     --color-accent: #E8A95E;
     /* Honey/Amber */
     --color-accent-hover: #D48F37;
+    --color-accent-text: #8F540C;
+    /* Deep gold for high-contrast AAA/AA compliant text elements */
     --color-surface: #FFFFFF;
     --color-border: #E5E5E5;
 
@@ -24,6 +26,19 @@
 
     /* Animation */
     --transition-fast: 0.3s ease;
+}
+
+/* Screen reader only utility for accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Reset & Base */
@@ -128,8 +143,8 @@ img {
 }
 
 .btn-secondary:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+    border-color: var(--color-accent-text);
+    color: var(--color-accent-text);
 }
 
 /* Header */
@@ -241,7 +256,7 @@ img {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.85rem;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin-bottom: var(--spacing-sm);
 }
 
@@ -448,10 +463,9 @@ img {
     display: block;
     font-family: var(--font-heading);
     font-weight: 700;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin-bottom: var(--spacing-sm);
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 0.95rem;
 }
 
 .service-card h3 {
@@ -494,7 +508,7 @@ img {
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     min-width: 50px;
     padding-top: var(--spacing-xs);
     /* Align with title */
@@ -973,7 +987,7 @@ img {
     margin-top: var(--spacing-sm);
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     transition: padding-left 0.2s;
 }
 
