@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Parallax Effect Logic
     const parallaxElements = document.querySelectorAll('.parallax-layer, .parallax-bg, .parallax-shape');
     let parallaxData = [];
-    let isMobile = window.innerWidth <= 768;
+    let isMobile = false;
 
     function cacheParallaxPositions() {
         isMobile = window.innerWidth <= 768;
@@ -88,17 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize Parallax
-    if (parallaxElements.length > 0) {
-        cacheParallaxPositions();
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', () => {
-            cacheParallaxPositions();
-            onScroll();
-        }, { passive: true });
-    }
-
-
     // Curtain Footer Dynamic Height Adjustment
     const footer = document.querySelector('.site-footer');
     const main = document.querySelector('main');
@@ -113,8 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Initialize Parallax and Curtain Footer reveal on window load to prevent forced layout reflows at startup
+    window.addEventListener('load', () => {
+        if (parallaxElements.length > 0) {
+            cacheParallaxPositions();
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', () => {
+                cacheParallaxPositions();
+                onScroll();
+            }, { passive: true });
+        }
+
+        adjustFooterReveal();
+    });
+
     window.addEventListener('resize', adjustFooterReveal);
-    adjustFooterReveal(); // Initial run
 
     // Initialize Floating Bees
     initFloatingBees();
