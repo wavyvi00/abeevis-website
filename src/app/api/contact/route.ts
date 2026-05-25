@@ -6,13 +6,22 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.FROM_EMAIL || 'leads@notifications.abeevis.com';
 
 interface BrandConfig {
+  theme: "studio" | "roadside" | "industrial";
   primaryColor: string;
   secondaryColor: string;
   accentColor: string;
   backgroundColor: string;
-  logoUrl: string;
+  cardColor: string;
+  textColor: string;
+  mutedTextColor: string;
+  borderColor: string;
+  logoUrl?: string;
+  logoStyle: "image" | "text" | "banner";
+  logoText?: string;
   websiteUrl: string;
-  tagline?: string;
+  tagline: string;
+  eyebrow?: string;
+  ctaLabel?: string;
 }
 
 interface SiteConfig {
@@ -34,13 +43,21 @@ const SITES: Record<string, SiteConfig> = {
     ],
     servicesLabel: "Service Requested",
     brand: {
-      primaryColor: "#0B0F19",
-      secondaryColor: "#111827",
-      accentColor: "#7C3AED",
-      backgroundColor: "#F5F7FB",
-      logoUrl: "https://www.abeevis.com/email-assets/abeevis-logo.png",
+      theme: "studio",
+      primaryColor: "#2B2B2B",
+      secondaryColor: "#F8F5EF",
+      accentColor: "#8A5A18",
+      backgroundColor: "#F7F3EA",
+      cardColor: "#FFFFFF",
+      textColor: "#2B2B2B",
+      mutedTextColor: "#6B665E",
+      borderColor: "#E8DFD2",
+      logoStyle: "text",
+      logoText: "ABEEVIS",
       websiteUrl: "https://www.abeevis.com",
-      tagline: "Digital websites, automation, and business systems"
+      tagline: "Digital clarity. Engineered creativity.",
+      eyebrow: "ABEEVIS STUDIO",
+      ctaLabel: "View Lead"
     }
   },
   "family-transport": {
@@ -52,13 +69,21 @@ const SITES: Record<string, SiteConfig> = {
     ],
     servicesLabel: "Service Requested",
     brand: {
-      primaryColor: "#C1121F",
+      theme: "roadside",
+      primaryColor: "#090D12",
       secondaryColor: "#111827",
-      accentColor: "#1F2937",
-      backgroundColor: "#F3F4F6",
+      accentColor: "#EF233C",
+      backgroundColor: "#070A0F",
+      cardColor: "#10151D",
+      textColor: "#FFFFFF",
+      mutedTextColor: "#CBD5E1",
+      borderColor: "#252B36",
+      logoStyle: "image",
       logoUrl: "https://www.abeevis.com/email-assets/family-transport-logo.png",
       websiteUrl: "https://www.familytransportusa.com",
-      tagline: "Roadside assistance and transport services"
+      tagline: "Asistencia vial rápida, directa y confiable.",
+      eyebrow: "SOLICITUD DE SERVICIO",
+      ctaLabel: "Responder al cliente"
     }
   },
   "vr-enterprise": {
@@ -69,13 +94,21 @@ const SITES: Record<string, SiteConfig> = {
     ],
     servicesLabel: "Service / Equipment Requested",
     brand: {
-      primaryColor: "#111827",
-      secondaryColor: "#1F2937",
-      accentColor: "#F59E0B",
-      backgroundColor: "#F4F4F5",
+      theme: "industrial",
+      primaryColor: "#050505",
+      secondaryColor: "#111111",
+      accentColor: "#FACC15",
+      backgroundColor: "#080808",
+      cardColor: "#111111",
+      textColor: "#FFFFFF",
+      mutedTextColor: "#C7C7C7",
+      borderColor: "#2A2A2A",
+      logoStyle: "image",
       logoUrl: "https://www.abeevis.com/email-assets/vr-enterprise-logo.png",
       websiteUrl: "https://vr-enterprise-sigma.vercel.app",
-      tagline: "Equipment, services, and enterprise solutions"
+      tagline: "Infraestructura • Energía • Logística • Tecnología",
+      eyebrow: "NUEVA COTIZACIÓN",
+      ctaLabel: "Responder solicitud"
     }
   }
 };
@@ -93,69 +126,125 @@ const formatDate = (date: Date) => {
   return date.toLocaleString('en-US', { timeZone: 'America/New_York' });
 };
 
-const buildPoweredByFooter = () => `
-  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center;">
-    <p style="margin: 0; font-size: 12px; color: #6b7280;">Powered by Abeevis</p>
-    <p style="margin: 4px 0 0; font-size: 12px; color: #6b7280;">Website form automation by Abeevis</p>
-    <a href="https://www.abeevis.com" style="color: #7C3AED; font-size: 12px; text-decoration: none;">https://www.abeevis.com</a>
-  </div>
-`;
+const buildThemeHeader = (brand: BrandConfig, businessName: string) => {
+  let logoContent = '';
+  if (brand.logoStyle === 'text') {
+    logoContent = `<h1 style="color: ${brand.textColor}; margin: 0; font-size: 24px; letter-spacing: 0.1em; font-weight: 600;">${brand.logoText || businessName}</h1>`;
+  } else if (brand.logoStyle === 'image' && brand.logoUrl) {
+    const maxWidth = brand.theme === 'roadside' ? '120px' : (brand.theme === 'industrial' ? '180px' : '200px');
+    logoContent = `<img src="${brand.logoUrl}" alt="${businessName}" style="max-width: ${maxWidth}; height: auto; display: block; margin: 0 auto;" />`;
+  }
+
+  let headerStyle = '';
+  if (brand.theme === 'studio') {
+    headerStyle = `background-color: ${brand.cardColor}; padding: 40px 40px 20px; text-align: center; border-bottom: 1px solid ${brand.borderColor};`;
+  } else if (brand.theme === 'roadside') {
+    headerStyle = `background-color: ${brand.primaryColor}; padding: 30px 40px; text-align: center; border-bottom: 4px solid ${brand.accentColor};`;
+  } else if (brand.theme === 'industrial') {
+    headerStyle = `background-color: ${brand.primaryColor}; padding: 30px 40px; text-align: center; border-bottom: 4px solid ${brand.accentColor};`;
+  }
+
+  let taglineStyle = `color: ${brand.mutedTextColor}; margin: 15px 0 0 0; font-size: 13px; letter-spacing: 0.05em;`;
+
+  return `
+    <div style="${headerStyle}">
+      ${logoContent}
+      ${brand.tagline ? `<p style="${taglineStyle}">${brand.tagline}</p>` : ''}
+    </div>
+  `;
+};
+
+const buildPoweredByFooter = (brand: BrandConfig) => {
+  const isAbeevis = brand.theme === 'studio';
+  const footerColor = isAbeevis ? brand.mutedTextColor : '#6b7280';
+  const linkColor = isAbeevis ? brand.accentColor : '#6b7280';
+  
+  return `
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid ${brand.borderColor}; text-align: center;">
+      <p style="margin: 0; font-size: 12px; color: ${footerColor};">Powered by Abeevis</p>
+      <p style="margin: 4px 0 0; font-size: 12px; color: ${footerColor};">Website form automation by Abeevis</p>
+      <p style="margin: 4px 0 0; font-size: 10px; color: ${footerColor}; opacity: 0.7;">Template Version: branded-v3</p>
+      <a href="https://www.abeevis.com" style="display: inline-block; margin-top: 8px; color: ${linkColor}; font-size: 12px; text-decoration: none;">https://www.abeevis.com</a>
+    </div>
+  `;
+};
 
 const buildEmailLayout = (brand: BrandConfig, businessName: string, content: string) => `
   <div style="font-family: 'Inter', Helvetica, Arial, sans-serif; background-color: ${brand.backgroundColor}; padding: 40px 20px; min-height: 100vh;">
-    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); border: 1px solid #e5e7eb;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: ${brand.cardColor}; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid ${brand.borderColor};">
       
       <!-- Header -->
-      <div style="background-color: ${brand.primaryColor}; padding: 30px 40px; text-align: center;">
-        ${brand.logoUrl ? 
-          `<img src="${brand.logoUrl}" alt="${businessName}" style="max-width: 200px; height: auto; display: block; margin: 0 auto;" />` : 
-          `<h1 style="color: #ffffff; margin: 0; font-size: 24px;">${businessName}</h1>`
-        }
-        ${brand.tagline ? `<p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 14px;">${brand.tagline}</p>` : ''}
-      </div>
+      ${buildThemeHeader(brand, businessName)}
 
       <!-- Body -->
       <div style="padding: 40px;">
         ${content}
         
         <!-- Footer -->
-        ${buildPoweredByFooter()}
+        ${buildPoweredByFooter(brand)}
       </div>
     </div>
   </div>
 `;
 
-const buildInfoRow = (label: string, value: string) => `
+const buildInfoRow = (brand: BrandConfig, label: string, value: string) => `
   <tr>
-    <td style="padding: 12px 15px; border-bottom: 1px solid #f3f4f6; color: #4b5563; width: 140px; font-weight: 600; font-size: 14px;">${label}</td>
-    <td style="padding: 12px 15px; border-bottom: 1px solid #f3f4f6; color: #111827; font-size: 14px;">${value}</td>
+    <td style="padding: 12px 15px; border-bottom: 1px solid ${brand.borderColor}; color: ${brand.mutedTextColor}; width: 140px; font-weight: 600; font-size: 14px;">${label}</td>
+    <td style="padding: 12px 15px; border-bottom: 1px solid ${brand.borderColor}; color: ${brand.textColor}; font-size: 14px;">${value}</td>
   </tr>
 `;
+
+const buildCtaButton = (brand: BrandConfig, href: string) => {
+  let btnStyle = `display: inline-block; background-color: ${brand.accentColor}; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px;`;
+  
+  if (brand.theme === 'industrial') {
+    btnStyle += ` color: #000000; border: 1px solid ${brand.accentColor};`;
+  } else {
+    btnStyle += ` color: #ffffff;`;
+  }
+
+  return `<a href="${href}" style="${btnStyle}">${brand.ctaLabel || 'Reply to Customer'}</a>`;
+};
+
+const buildMessageBox = (brand: BrandConfig, message: string) => {
+  let boxStyle = `margin-top: 20px; padding: 24px; background: ${brand.secondaryColor}; border-left: 4px solid ${brand.accentColor}; border-radius: 0 8px 8px 0;`;
+  
+  if (brand.theme === 'studio') {
+    boxStyle = `margin-top: 20px; padding: 24px; background: ${brand.secondaryColor}; border-left: 2px solid ${brand.accentColor}; border-radius: 4px;`;
+  }
+
+  return `
+    <div style="${boxStyle}">
+      <p style="margin: 0 0 10px 0; font-weight: 600; color: ${brand.mutedTextColor}; font-size: 14px;">Message:</p>
+      <p style="white-space: pre-wrap; margin: 0; color: ${brand.textColor}; font-size: 15px; line-height: 1.6;">${message}</p>
+    </div>
+  `;
+};
 
 const buildLeadNotificationEmail = (siteConfig: SiteConfig, leadDetails: any) => {
   const { brand, businessName, servicesLabel } = siteConfig;
   const { safeName, safeEmail, safePhone, safeService, safeMessage, safeSourcePage, timestamp } = leadDetails;
   
+  const eyebrowText = brand.eyebrow ? `<p style="color: ${brand.accentColor}; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; margin: 0 0 10px 0;">${brand.eyebrow}</p>` : '';
+
   const content = `
-    <h2 style="color: #111827; margin: 0 0 24px 0; font-size: 20px;">New Website Lead</h2>
+    ${eyebrowText}
+    <h2 style="color: ${brand.textColor}; margin: 0 0 24px 0; font-size: 22px;">New Website Lead</h2>
     
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; background-color: #f9fafb; border-radius: 8px; overflow: hidden;">
-      ${buildInfoRow('Name', safeName)}
-      ${buildInfoRow('Email', `<a href="mailto:${safeEmail}" style="color: ${brand.accentColor}; text-decoration: none;">${safeEmail}</a>`)}
-      ${buildInfoRow('Phone', safePhone)}
-      ${buildInfoRow(servicesLabel, safeService)}
-      ${buildInfoRow('Source Page', safeSourcePage)}
-      ${buildInfoRow('Submitted', timestamp)}
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; background-color: ${brand.secondaryColor}; border-radius: 8px; overflow: hidden; border: 1px solid ${brand.borderColor};">
+      ${buildInfoRow(brand, 'Name', safeName)}
+      ${buildInfoRow(brand, 'Email', `<a href="mailto:${safeEmail}" style="color: ${brand.accentColor}; text-decoration: none;">${safeEmail}</a>`)}
+      ${buildInfoRow(brand, 'Phone', safePhone)}
+      ${buildInfoRow(brand, servicesLabel, safeService)}
+      ${buildInfoRow(brand, 'Source Page', safeSourcePage)}
+      ${buildInfoRow(brand, 'Submitted', timestamp)}
     </table>
 
-    <div style="margin-top: 20px; padding: 24px; background: #f9fafb; border-left: 4px solid ${brand.accentColor}; border-radius: 0 8px 8px 0;">
-      <p style="margin: 0 0 10px 0; font-weight: 600; color: #374151; font-size: 14px;">Message:</p>
-      <p style="white-space: pre-wrap; margin: 0; color: #111827; font-size: 15px; line-height: 1.6;">${safeMessage}</p>
-    </div>
+    ${buildMessageBox(brand, safeMessage)}
 
     <div style="margin-top: 35px; text-align: center;">
-      <a href="mailto:${safeEmail}" style="display: inline-block; background-color: ${brand.accentColor}; color: #ffffff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px;">Reply to Customer</a>
-      <p style="margin-top: 15px; font-size: 13px; color: #6b7280;">Replying to this email should reply directly to the customer.</p>
+      ${buildCtaButton(brand, `mailto:${safeEmail}`)}
+      <p style="margin-top: 15px; font-size: 13px; color: ${brand.mutedTextColor};">Replying to this email should reply directly to the customer.</p>
     </div>
   `;
 
@@ -167,20 +256,20 @@ const buildCustomerConfirmationEmail = (siteConfig: SiteConfig, leadDetails: any
   const { safeName, safeMessage } = leadDetails;
 
   const content = `
-    <h2 style="color: #111827; margin: 0 0 20px 0; font-size: 20px;">We received your request</h2>
+    <h2 style="color: ${brand.textColor}; margin: 0 0 20px 0; font-size: 20px;">We received your request</h2>
     
-    <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">Hi ${safeName},</p>
+    <p style="color: ${brand.textColor}; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">Hi ${safeName},</p>
     
-    <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0 0 25px 0;">Thank you for reaching out! We wanted to let you know that we have received your recent request. Our team will review your message and contact you shortly.</p>
+    <p style="color: ${brand.mutedTextColor}; font-size: 16px; line-height: 1.6; margin: 0 0 25px 0;">Thank you for reaching out! We wanted to let you know that we have received your recent request. Our team will review your message and contact you shortly.</p>
     
-    <div style="padding: 20px; background-color: #f9fafb; border-radius: 8px; border: 1px solid #f3f4f6; margin-bottom: 30px;">
-      <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Your Message Summary</p>
-      <p style="white-space: pre-wrap; margin: 0; color: #374151; font-size: 14px; font-style: italic;">"${safeMessage}"</p>
+    <div style="padding: 20px; background-color: ${brand.secondaryColor}; border-radius: 8px; border: 1px solid ${brand.borderColor}; margin-bottom: 30px;">
+      <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; color: ${brand.mutedTextColor}; text-transform: uppercase; letter-spacing: 0.05em;">Your Message Summary</p>
+      <p style="white-space: pre-wrap; margin: 0; color: ${brand.textColor}; font-size: 14px; font-style: italic;">"${safeMessage}"</p>
     </div>
 
-    <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin: 0;">
+    <p style="color: ${brand.mutedTextColor}; font-size: 16px; line-height: 1.6; margin: 0;">
       Best regards,<br/>
-      <strong style="color: #111827;">${businessName}</strong>
+      <strong style="color: ${brand.textColor};">${businessName}</strong>
     </p>
   `;
 
