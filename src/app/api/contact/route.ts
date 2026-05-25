@@ -141,7 +141,7 @@ const buildLeadNotificationEmail = (siteConfig: SiteConfig, leadDetails: any) =>
     
     <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; background-color: #f9fafb; border-radius: 8px; overflow: hidden;">
       ${buildInfoRow('Name', safeName)}
-      ${buildInfoRow('Email', \`<a href="mailto:\${safeEmail}" style="color: \${brand.accentColor}; text-decoration: none;">\${safeEmail}</a>\`)}
+      ${buildInfoRow('Email', `<a href="mailto:${safeEmail}" style="color: ${brand.accentColor}; text-decoration: none;">${safeEmail}</a>`)}
       ${buildInfoRow('Phone', safePhone)}
       ${buildInfoRow(servicesLabel, safeService)}
       ${buildInfoRow('Source Page', safeSourcePage)}
