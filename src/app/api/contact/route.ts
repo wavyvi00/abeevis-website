@@ -137,15 +137,15 @@ const buildThemeHeader = (brand: BrandConfig, businessName: string) => {
     return `
       <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td align="center" style="padding: 8px 20px 30px 20px;">
+          <td align="center" style="padding: 0 20px 12px 20px;">
             <img
               src="${getEmailAssetUrl('/email-assets/abeevis-email-header.png')}"
-              width="420"
+              width="240"
               alt="Abeevis Studio - Digital Clarity. Engineered Creativity."
               style="
                 display: block;
                 width: 100%;
-                max-width: 420px;
+                max-width: 240px;
                 height: auto;
                 border: 0;
                 outline: none;
@@ -264,7 +264,7 @@ const buildEmailLayout = (brand: BrandConfig, businessName: string, content: str
 
           <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:${brand.backgroundColor}; font-family: 'Inter', Helvetica, Arial, sans-serif; min-height: 100vh;">
             <tr>
-              <td align="center" style="padding:42px 12px 36px 12px;">
+              <td align="center" style="padding: 28px 12px 34px 12px;">
                 <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:680px; margin:0 auto;">
                   
                   <tr>
@@ -282,7 +282,7 @@ const buildEmailLayout = (brand: BrandConfig, businessName: string, content: str
                         box-shadow:0 18px 50px rgba(43,43,43,0.06);
                       ">
                         <tr>
-                          <td style="padding:48px 48px 44px 48px;">
+                          <td style="padding: 42px;">
                             ${content}
                           </td>
                         </tr>
@@ -291,7 +291,7 @@ const buildEmailLayout = (brand: BrandConfig, businessName: string, content: str
                   </tr>
 
                   <tr>
-                    <td align="center" style="padding-top:28px;">
+                    <td align="center" style="padding-top:24px;">
                       ${buildPoweredByFooter(brand)}
                     </td>
                   </tr>
