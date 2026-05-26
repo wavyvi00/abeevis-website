@@ -129,7 +129,7 @@ const formatDate = (date: Date) => {
 const getEmailAssetUrl = (path: string) => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abeevis.com";
   const baseUrl = siteUrl.replace(/\/$/, "");
-  return `${baseUrl}${path.startsWith("/") ? path : \`/\${path}\`}`;
+  return `${baseUrl}${path.startsWith("/") ? path : "/" + path}`;
 };
 
 const buildThemeHeader = (brand: BrandConfig, businessName: string) => {
