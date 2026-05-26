@@ -126,17 +126,36 @@ const formatDate = (date: Date) => {
   return date.toLocaleString('en-US', { timeZone: 'America/New_York' });
 };
 
+const getEmailAssetUrl = (path: string) => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abeevis.com";
+  const baseUrl = siteUrl.replace(/\/$/, "");
+  return `${baseUrl}${path.startsWith("/") ? path : \`/\${path}\`}`;
+};
+
 const buildThemeHeader = (brand: BrandConfig, businessName: string) => {
   if (brand.theme === 'studio') {
     return `
-      <div style="text-align: center; padding: 10px 20px 30px;">
-        <div style="color: ${brand.accentColor}; font-size: 20px; margin-bottom: 12px; line-height: 1;">⬡</div>
-        <p style="color: ${brand.accentColor}; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 16px 0;">${brand.eyebrow || 'ABEEVIS STUDIO'}</p>
-        <h1 style="color: ${brand.textColor}; font-size: 28px; font-weight: 600; line-height: 1.25; margin: 0; letter-spacing: -0.02em;">
-          Digital Clarity.<br/>
-          <span style="color: ${brand.accentColor};">Engineered Creativity.</span>
-        </h1>
-      </div>
+      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align="center" style="padding: 8px 20px 30px 20px;">
+            <img
+              src="${getEmailAssetUrl('/email-assets/abeevis-email-header.png')}"
+              width="420"
+              alt="Abeevis Studio - Digital Clarity. Engineered Creativity."
+              style="
+                display: block;
+                width: 100%;
+                max-width: 420px;
+                height: auto;
+                border: 0;
+                outline: none;
+                text-decoration: none;
+                margin: 0 auto;
+              "
+            />
+          </td>
+        </tr>
+      </table>
     `;
   }
 
@@ -173,12 +192,53 @@ const buildPoweredByFooter = (brand: BrandConfig) => {
   const linkColor = isAbeevis ? brand.accentColor : '#6b7280';
   
   if (isAbeevis) {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abeevis.com";
     return `
-      <div style="text-align: center; padding: 20px 0;">
-        <p style="margin: 0; font-size: 12px; color: ${footerColor}; line-height: 1.5;">Powered by Abeevis</p>
-        <p style="margin: 2px 0 0; font-size: 12px; color: ${footerColor}; line-height: 1.5;">Website form automation by Abeevis</p>
-        <a href="https://www.abeevis.com" style="display: inline-block; margin-top: 10px; color: ${linkColor}; font-size: 12px; text-decoration: none !important; font-weight: 500; border: none;">https://www.abeevis.com</a>
-      </div>
+      <table role="presentation" border="0" cellspacing="0" cellpadding="0" align="center">
+        <tr>
+          <td align="center" style="padding:0; font-family:Arial, Helvetica, sans-serif;">
+            <p style="
+              margin:0;
+              color:${footerColor};
+              font-size:12px;
+              line-height:1.6;
+              text-decoration:none;
+              border:0;
+            ">
+              Powered by <strong style="color:${brand.textColor}; font-weight:600;">Abeevis</strong>
+            </p>
+
+            <p style="
+              margin:2px 0 0 0;
+              color:${footerColor};
+              font-size:12px;
+              line-height:1.6;
+              text-decoration:none;
+              border:0;
+            ">
+              Website form automation by Abeevis
+            </p>
+
+            <a
+              href="${siteUrl}"
+              target="_blank"
+              style="
+                display:inline-block;
+                margin-top:10px;
+                color:${linkColor};
+                font-size:12px;
+                line-height:1.6;
+                font-weight:600;
+                text-decoration:none !important;
+                border:0 !important;
+                outline:none !important;
+              "
+            >
+              www.abeevis.com
+            </a>
+          </td>
+        </tr>
+      </table>
     `;
   }
 
@@ -195,31 +255,53 @@ const buildPoweredByFooter = (brand: BrandConfig) => {
 const buildEmailLayout = (brand: BrandConfig, businessName: string, content: string) => {
   if (brand.theme === 'studio') {
     return `
-      <div style="font-family: 'Inter', Helvetica, Arial, sans-serif; background-color: ${brand.backgroundColor}; padding: 40px 10px; min-height: 100vh;">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 680px; margin: 0 auto;">
-          <tr>
-            <td width="40" valign="top" style="padding-top: 60px; color: rgba(138, 90, 24, 0.15); font-size: 16px; text-align: right; padding-right: 20px;">⬡</td>
-            <td align="center" style="padding-bottom: 25px;">
-              ${buildThemeHeader(brand, businessName)}
-            </td>
-            <td width="40" valign="bottom" style="padding-bottom: 40px; color: rgba(138, 90, 24, 0.2); font-size: 14px; text-align: left; padding-left: 20px;">⬡</td>
-          </tr>
-          <tr>
-            <td width="40" valign="top" style="padding-top: 100px; color: rgba(138, 90, 24, 0.25); font-size: 12px; text-align: right; padding-right: 10px;">⬡</td>
-            <td style="background-color: ${brand.cardColor}; border-radius: 12px; padding: 45px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03); border: 1px solid ${brand.borderColor};">
-              ${content}
-            </td>
-            <td width="40" valign="top" style="padding-top: 150px; color: rgba(138, 90, 24, 0.15); font-size: 18px; text-align: left; padding-left: 15px;">⬡</td>
-          </tr>
-          <tr>
-            <td width="40"></td>
-            <td align="center" style="padding-top: 25px;">
-              ${buildPoweredByFooter(brand)}
-            </td>
-            <td width="40"></td>
-          </tr>
-        </table>
-      </div>
+      <!doctype html>
+      <html>
+        <body style="margin:0; padding:0; background-color:${brand.backgroundColor};">
+          <div style="display:none; max-height:0; overflow:hidden; opacity:0;">
+            We received your request. Abeevis will review your details shortly.
+          </div>
+
+          <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:${brand.backgroundColor}; font-family: 'Inter', Helvetica, Arial, sans-serif; min-height: 100vh;">
+            <tr>
+              <td align="center" style="padding:42px 12px 36px 12px;">
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:680px; margin:0 auto;">
+                  
+                  <tr>
+                    <td align="center">
+                      ${buildThemeHeader(brand, businessName)}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="
+                        background-color:${brand.cardColor};
+                        border:1px solid ${brand.borderColor};
+                        border-radius:18px;
+                        box-shadow:0 18px 50px rgba(43,43,43,0.06);
+                      ">
+                        <tr>
+                          <td style="padding:48px 48px 44px 48px;">
+                            ${content}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td align="center" style="padding-top:28px;">
+                      ${buildPoweredByFooter(brand)}
+                    </td>
+                  </tr>
+
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
     `;
   }
 
@@ -243,17 +325,37 @@ const buildEmailLayout = (brand: BrandConfig, businessName: string, content: str
 };
 
 const buildInfoRow = (brand: BrandConfig, label: string, value: string) => {
+  if (!value || !value.trim()) return "";
+
   if (brand.theme === 'studio') {
     return `
       <tr>
-        <td style="padding: 14px 16px; border-bottom: 1px solid ${brand.borderColor}; color: ${brand.mutedTextColor}; width: 140px; font-weight: 500; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">${label}</td>
-        <td style="padding: 14px 16px; border-bottom: 1px solid ${brand.borderColor}; color: ${brand.textColor}; font-size: 15px; font-weight: 500;">${value}</td>
+        <td style="
+          padding:10px 0;
+          color:${brand.mutedTextColor};
+          font-size:13px;
+          line-height:1.5;
+          width:38%;
+          border-bottom:1px solid ${brand.borderColor};
+        ">
+          ${escapeHtml(label)}
+        </td>
+        <td style="
+          padding:10px 0;
+          color:${brand.textColor};
+          font-size:14px;
+          line-height:1.5;
+          font-weight:600;
+          border-bottom:1px solid ${brand.borderColor};
+        ">
+          ${value}
+        </td>
       </tr>
     `;
   }
   return `
     <tr>
-      <td style="padding: 12px 15px; border-bottom: 1px solid ${brand.borderColor}; color: ${brand.mutedTextColor}; width: 140px; font-weight: 600; font-size: 14px;">${label}</td>
+      <td style="padding: 12px 15px; border-bottom: 1px solid ${brand.borderColor}; color: ${brand.mutedTextColor}; width: 140px; font-weight: 600; font-size: 14px;">${escapeHtml(label)}</td>
       <td style="padding: 12px 15px; border-bottom: 1px solid ${brand.borderColor}; color: ${brand.textColor}; font-size: 14px;">${value}</td>
     </tr>
   `;
@@ -332,18 +434,53 @@ const buildLeadNotificationEmail = (siteConfig: SiteConfig, leadDetails: any) =>
   return buildEmailLayout(brand, businessName, content);
 };
 
-const buildSummaryCard = (brand: BrandConfig, message: string) => {
+const buildSummaryCard = (brand: BrandConfig, fields: Array<{ label: string; value: string }>) => {
+  const rows = fields
+    .map((field) => buildInfoRow(brand, field.label, field.value))
+    .join("");
+
+  if (!rows.trim()) return "";
+
   return `
-    <div style="padding: 24px; background-color: ${brand.backgroundColor}; border-radius: 8px; border: 1px solid ${brand.borderColor}; margin-bottom: 30px;">
-      <p style="margin: 0 0 12px 0; font-size: 11px; font-weight: 700; color: ${brand.accentColor}; text-transform: uppercase; letter-spacing: 0.1em;">Your Message Summary</p>
-      <p style="white-space: pre-wrap; margin: 0; color: ${brand.textColor}; font-size: 15px; font-style: italic; line-height: 1.6;">"${message}"</p>
-    </div>
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="
+      background-color:#F9F4EA;
+      border:1px solid ${brand.borderColor};
+      border-radius:12px;
+      margin:28px 0 30px 0;
+    ">
+      <tr>
+        <td style="padding:22px 24px;">
+          <p style="
+            margin:0 0 10px 0;
+            color:${brand.accentColor};
+            font-size:11px;
+            font-weight:700;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+          ">
+            Your Message Summary
+          </p>
+
+          <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+            ${rows}
+          </table>
+        </td>
+      </tr>
+    </table>
   `;
 };
 
 const buildCustomerConfirmationEmail = (siteConfig: SiteConfig, leadDetails: any) => {
   const { brand, businessName } = siteConfig;
-  const { safeName, safeMessage } = leadDetails;
+  const { safeName, safeEmail, safePhone, safeMessage, safeService } = leadDetails;
+
+  const summaryFields = [
+    { label: "Name", value: safeName },
+    { label: "Email", value: safeEmail },
+    { label: "Phone", value: safePhone !== "N/A" ? safePhone : "" },
+    { label: siteConfig.servicesLabel, value: safeService !== "N/A" ? safeService : "" },
+    { label: "Message", value: safeMessage }
+  ].filter(f => f.value);
 
   const content = `
     <h2 style="color: ${brand.textColor}; margin: 0 0 24px 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em;">We received your request</h2>
@@ -352,7 +489,7 @@ const buildCustomerConfirmationEmail = (siteConfig: SiteConfig, leadDetails: any
     
     <p style="color: ${brand.mutedTextColor}; font-size: 15px; line-height: 1.6; margin: 0 0 32px 0;">Thank you for reaching out! We wanted to let you know that we have received your recent request. Our team is already reviewing your details.</p>
     
-    ${brand.theme === 'studio' ? buildSummaryCard(brand, safeMessage) : `
+    ${brand.theme === 'studio' ? buildSummaryCard(brand, summaryFields) : `
       <div style="padding: 20px; background-color: ${brand.secondaryColor}; border-radius: 8px; border: 1px solid ${brand.borderColor}; margin-bottom: 30px;">
         <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; color: ${brand.mutedTextColor}; text-transform: uppercase; letter-spacing: 0.05em;">Your Message Summary</p>
         <p style="white-space: pre-wrap; margin: 0; color: ${brand.textColor}; font-size: 14px; font-style: italic;">"${safeMessage}"</p>
