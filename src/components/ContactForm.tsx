@@ -2,12 +2,14 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ export default function ContactForm() {
       business_name: formData.get("business_name"),
       companyWebsite: formData.get("companyWebsite"), // Honeypot
       sourcePage: window.location.href,
+      turnstileToken,
     };
 
     // If business_name is provided, append it to the message or handle appropriately
@@ -52,6 +55,7 @@ export default function ContactForm() {
     } catch (err: any) {
       setError(err.message || "Failed to send message. Please try again.");
       setIsSubmitting(false);
+      setTurnstileToken("");
     }
   };
 
@@ -96,6 +100,17 @@ export default function ContactForm() {
       <div className="form-group">
         <textarea name="message" placeholder="Tell us about your project..." required className="form-textarea" rows={4} disabled={isSubmitting} />
       </div>
+
+      {process.env.NEXT_PUBLIC_TURNSTILE_SITE && (
+        <div className="form-group flex justify-center">
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE}
+            onSuccess={(token) => setTurnstileToken(token)}
+            onError={() => setTurnstileToken("")}
+            onExpire={() => setTurnstileToken("")}
+          />
+        </div>
+      )}
 
       <button type="submit" className="btn-primary btn-large btn-block" disabled={isSubmitting}>
         {isSubmitting ? "Sending..." : "Send Message"}
