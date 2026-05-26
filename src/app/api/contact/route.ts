@@ -527,7 +527,7 @@ const buildCustomerConfirmationEmail = (siteConfig: SiteConfig, leadDetails: any
 // Simple in-memory rate limiting (Note: resets on serverless cold starts)
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT_MAX = 5; // max 5 requests per window
-const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute window
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minute window
 
 function getCorsHeaders(origin: string | null, siteConfig?: SiteConfig) {
   let allowedOrigin = '';
@@ -584,14 +584,14 @@ export async function POST(req: NextRequest) {
     } else {
       rateData.count++;
       if (rateData.count > RATE_LIMIT_MAX) {
-        return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+        return NextResponse.json({ error: "Too many submissions. Please wait a few minutes and try again." }, { status: 429 });
       }
     }
     rateLimitMap.set(ip, rateData);
 
     // Parse Body
     const body = await req.json();
-    const { siteId, name, email, phone, service, message, sourcePage, companyWebsite } = body;
+    const { siteId, name, email, phone, service, message, sourcePage, companyWebsite, turnstileToken } = body;
 
     // Reject unknown siteIds
     if (!siteId || !SITES[siteId]) {
@@ -600,6 +600,26 @@ export async function POST(req: NextRequest) {
 
     const siteConfig = SITES[siteId];
     const corsHeaders = getCorsHeaders(origin, siteConfig);
+
+    // Turnstile Verification
+    const actualTurnstileToken = turnstileToken || body["cf-turnstile-response"];
+    if (!actualTurnstileToken) {
+      return NextResponse.json({ error: "Security verification missing. Please try again." }, { status: 400, headers: corsHeaders });
+    }
+
+    const turnstileSecret = process.env.TURNSTILE_SECRET;
+    if (turnstileSecret) {
+      const turnstileVerifyResponse = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${encodeURIComponent(turnstileSecret)}&response=${encodeURIComponent(actualTurnstileToken)}`,
+      });
+
+      const turnstileData = await turnstileVerifyResponse.json();
+      if (!turnstileData.success) {
+        return NextResponse.json({ error: "Security verification failed. Please refresh and try again." }, { status: 403, headers: corsHeaders });
+      }
+    }
 
     // CORS Validation
     if (origin && !corsHeaders['Access-Control-Allow-Origin']) {
