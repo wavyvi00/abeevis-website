@@ -102,13 +102,16 @@ export default function ContactForm() {
       </div>
 
       {process.env.NEXT_PUBLIC_TURNSTILE_SITE && (
-        <div className="form-group flex justify-center">
-          <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE}
-            onSuccess={(token) => setTurnstileToken(token)}
-            onError={() => setTurnstileToken("")}
-            onExpire={() => setTurnstileToken("")}
-          />
+        <div className="form-group flex justify-center my-4">
+          <div className="p-1 rounded-xl bg-white/50 backdrop-blur-md border border-stone-200 shadow-sm">
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE}
+              onSuccess={(token) => setTurnstileToken(token)}
+              onError={() => setTurnstileToken("")}
+              onExpire={() => setTurnstileToken("")}
+              options={{ theme: "light" }}
+            />
+          </div>
         </div>
       )}
 
