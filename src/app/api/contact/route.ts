@@ -188,66 +188,65 @@ const buildThemeHeader = (brand: BrandConfig, businessName: string) => {
 
 const buildPoweredByFooter = (brand: BrandConfig) => {
   const isAbeevis = brand.theme === 'studio';
-  const footerColor = isAbeevis ? brand.mutedTextColor : '#6b7280';
-  const linkColor = isAbeevis ? brand.accentColor : '#6b7280';
+  const footerColor = brand.mutedTextColor;
+  const linkColor = isAbeevis ? brand.accentColor : '#eccd68ff';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abeevis.com";
   
+  const footerContent = `
+    <table role="presentation" border="0" cellspacing="0" cellpadding="0" align="center">
+      <tr>
+        <td align="center" style="padding:0; font-family:Arial, Helvetica, sans-serif;">
+          <p style="
+            margin:0;
+            color:${footerColor};
+            font-size:12px;
+            line-height:1.6;
+            text-decoration:none;
+            border:0;
+          ">
+            Powered by <strong style="color:${brand.textColor}; font-weight:600;">Abeevis</strong>
+          </p>
+
+          <p style="
+            margin:2px 0 0 0;
+            color:${footerColor};
+            font-size:12px;
+            line-height:1.6;
+            text-decoration:none;
+            border:0;
+          ">
+            Website form automation by Abeevis
+          </p>
+
+          <a
+            href="${siteUrl}"
+            target="_blank"
+            style="
+              display:inline-block;
+              margin-top:10px;
+              color:${linkColor};
+              font-size:12px;
+              line-height:1.6;
+              font-weight:600;
+              text-decoration:none !important;
+              border:0 !important;
+              outline:none !important;
+            "
+          >
+            www.abeevis.com
+          </a>
+        </td>
+      </tr>
+    </table>
+  `;
+
   if (isAbeevis) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.abeevis.com";
-    return `
-      <table role="presentation" border="0" cellspacing="0" cellpadding="0" align="center">
-        <tr>
-          <td align="center" style="padding:0; font-family:Arial, Helvetica, sans-serif;">
-            <p style="
-              margin:0;
-              color:${footerColor};
-              font-size:12px;
-              line-height:1.6;
-              text-decoration:none;
-              border:0;
-            ">
-              Powered by <strong style="color:${brand.textColor}; font-weight:600;">Abeevis</strong>
-            </p>
-
-            <p style="
-              margin:2px 0 0 0;
-              color:${footerColor};
-              font-size:12px;
-              line-height:1.6;
-              text-decoration:none;
-              border:0;
-            ">
-              Website form automation by Abeevis
-            </p>
-
-            <a
-              href="${siteUrl}"
-              target="_blank"
-              style="
-                display:inline-block;
-                margin-top:10px;
-                color:${linkColor};
-                font-size:12px;
-                line-height:1.6;
-                font-weight:600;
-                text-decoration:none !important;
-                border:0 !important;
-                outline:none !important;
-              "
-            >
-              www.abeevis.com
-            </a>
-          </td>
-        </tr>
-      </table>
-    `;
+    return footerContent;
   }
 
   return `
-    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid ${brand.borderColor}; text-align: center;">
-      <p style="margin: 0; font-size: 12px; color: ${footerColor};">Powered by Abeevis</p>
-      <p style="margin: 4px 0 0; font-size: 12px; color: ${footerColor};">Website form automation by Abeevis</p>
-      <p style="margin: 4px 0 0; font-size: 10px; color: ${footerColor}; opacity: 0.7;">Template Version: branded-v3</p>
-      <a href="https://www.abeevis.com" style="display: inline-block; margin-top: 8px; color: ${linkColor}; font-size: 12px; text-decoration: none;">https://www.abeevis.com</a>
+    <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid ${brand.borderColor}; text-align: center;">
+      ${footerContent}
     </div>
   `;
 };
