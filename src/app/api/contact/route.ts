@@ -664,7 +664,7 @@ export async function POST(req: NextRequest) {
       to: [siteConfig.recipientEmail],
       bcc: bccList,
       replyTo: safeEmail,
-      subject: `New Website Lead - ${siteConfig.businessName}`,
+      subject: `New Lead from ${safeName} - ${siteConfig.businessName}`,
       html: buildLeadNotificationEmail(siteConfig, leadDetails)
     };
 
