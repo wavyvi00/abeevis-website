@@ -87,7 +87,13 @@ export const SITES: Record<string, SiteConfig> = {
     siteId: "vr-enterprise",
     businessName: "VR Enterprise",
     recipientEmail: process.env.VR_ENTERPRISE_EMAIL || "",
-    allowedOrigins: ["https://vr-enterprise-sigma.vercel.app"],
+    allowedOrigins: [
+      "https://vr-enterprise-sigma.vercel.app",
+      "https://www.vrenterprisepr.com",
+      "https://vrenterprisepr.com",
+      "https://www.vrenterpriseusa.com",
+      "https://vrenterpriseusa.com"
+    ],
     servicesLabel: "Servicio / Equipo Solicitado",
     leadIdPrefix: "VRE",
     customerLang: "es",
@@ -107,7 +113,7 @@ export const SITES: Record<string, SiteConfig> = {
       borderColor: "#2A2A2A",
       logoStyle: "image",
       logoUrl: "https://www.abeevis.com/email-assets/vr-enterprise-logo.png",
-      websiteUrl: "https://vr-enterprise-sigma.vercel.app",
+      websiteUrl: "https://www.vrenterprisepr.com",
       tagline: "Infraestructura • Energía • Logística • Tecnología",
       eyebrow: "NUEVA COTIZACIÓN",
       ctaLabel: "Responder solicitud",

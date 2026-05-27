@@ -57,12 +57,14 @@ export const generateLeadId = (prefix: string): string => {
   return `${prefix}-${yy}${mm}${dd}-${rand}`;
 };
 
-/** Strip a URL down to just its pathname for display. */
+/** Strip a URL down to a clean display format (hostname + pathname). */
 export const cleanSourcePath = (url: string): string => {
-  if (!url) return "/";
+  if (!url) return "N/A";
   try {
     const u = new URL(url);
-    return u.pathname || "/";
+    const hostname = u.hostname.replace(/^www\./, "");
+    const pathname = u.pathname === "/" ? "" : u.pathname;
+    return `${hostname}${pathname}` || "N/A";
   } catch {
     return url.length > 50 ? url.slice(0, 47) + "…" : url;
   }
