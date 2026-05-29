@@ -309,13 +309,13 @@ export default function Home() {
           <div className="process-timeline-layout" style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto', paddingBottom: '10vh' }}>
             
             {/* Center Track */}
-            <div className="hidden md:block" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px', background: 'var(--color-border)', transform: 'translateX(-50%)' }}></div>
+            <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px', background: 'var(--color-border)', transform: 'translateX(-50%)', zIndex: 0 }}></div>
             
             {/* Glow Track */}
-            <div className="glow-track hidden md:block" style={{ position: 'absolute', left: '50%', top: 0, height: '0%', width: '4px', background: 'var(--color-accent)', transform: 'translateX(-50%)', boxShadow: '0 0 15px var(--color-accent)' }}></div>
+            <div className="glow-track" style={{ position: 'absolute', left: '50%', top: 0, height: '0%', width: '4px', background: 'var(--color-accent)', transform: 'translateX(-50%)', boxShadow: '0 0 15px var(--color-accent)', zIndex: 0 }}></div>
             
             {/* The Bee */}
-            <div className="scroll-bee hidden md:block" style={{ position: 'absolute', top: 0, left: '50%', width: '48px', height: '48px', color: 'var(--color-accent)', transform: 'translate(-50%, -50%)', zIndex: 10 }}>
+            <div className="scroll-bee" style={{ position: 'absolute', top: 0, left: '50%', width: '48px', height: '48px', color: 'var(--color-accent)', transform: 'translate(-50%, -50%)', zIndex: 0 }}>
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform: 'rotate(180deg)', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }}>
                 <path d="M5 8C5 8 0 4 2 3C4 2 8 6 8 10" fill="currentColor" opacity="0.6"/>
                 <path d="M19 8C19 8 24 4 22 3C20 2 16 6 16 10" fill="currentColor" opacity="0.6"/>
