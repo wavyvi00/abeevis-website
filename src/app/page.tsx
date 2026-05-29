@@ -45,34 +45,36 @@ export default function Home() {
   useGSAP(() => {
     const isMobile = window.innerWidth <= 768;
     
+    const timelineLayout = document.querySelector('.process-timeline-layout') as HTMLElement;
+    
+    if (timelineLayout) {
+      // Animate the Glow Track (Desktop & Mobile)
+      gsap.to('.glow-track', {
+        height: '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: timelineLayout,
+          start: "top center",
+          end: "bottom center",
+          scrub: 1
+        }
+      });
+
+      // Animate the Bee (Desktop & Mobile)
+      gsap.to('.scroll-bee', {
+        top: '100%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: timelineLayout,
+          start: "top center",
+          end: "bottom center",
+          scrub: 1
+        }
+      });
+    }
+
     if (!isMobile) {
-      const timelineLayout = document.querySelector('.process-timeline-layout') as HTMLElement;
-      
       if (timelineLayout) {
-        // Animate the Glow Track
-        gsap.to('.glow-track', {
-          height: '100%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: timelineLayout,
-            start: "top center",
-            end: "bottom center",
-            scrub: 1
-          }
-        });
-
-        // Animate the Bee
-        gsap.to('.scroll-bee', {
-          top: '100%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: timelineLayout,
-            start: "top center",
-            end: "bottom center",
-            scrub: 1
-          }
-        });
-
         // Background Parallax Elements
         gsap.to('.scroll-orb-1', {
           y: '30vh', x: '10vw', ease: 'none',
