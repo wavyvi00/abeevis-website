@@ -60,7 +60,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
+    <form ref={formRef} onSubmit={handleSubmit} className="contact-form honeycomb-form-card">
       {/* Honeypot field - hidden from users */}
       <input type="text" name="companyWebsite" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
 
@@ -70,23 +70,26 @@ export default function ContactForm() {
         </div>
       )}
 
-      <div className="form-group">
-        <input type="text" name="name" placeholder="Your Name" required className="form-input" disabled={isSubmitting} />
+      <div className="form-grid-2">
+        <div className="form-group">
+          <input type="text" name="name" placeholder="Your Name" required className="premium-input" disabled={isSubmitting} />
+        </div>
+        <div className="form-group">
+          <input type="text" name="business_name" placeholder="Business Name" className="premium-input" disabled={isSubmitting} />
+        </div>
+        <div className="form-group">
+          <input type="tel" name="phone" placeholder="Phone Number" className="premium-input" disabled={isSubmitting} />
+        </div>
+        <div className="form-group">
+          <input type="email" name="email" placeholder="Your Email" required className="premium-input" disabled={isSubmitting} />
+        </div>
       </div>
-      <div className="form-group">
-        <input type="text" name="business_name" placeholder="Business Name" className="form-input" disabled={isSubmitting} />
-      </div>
-      <div className="form-group">
-        <input type="tel" name="phone" placeholder="Phone Number" className="form-input" disabled={isSubmitting} />
-      </div>
-      <div className="form-group">
-        <input type="email" name="email" placeholder="Your Email" required className="form-input" disabled={isSubmitting} />
-      </div>
-      <div className="form-group">
+
+      <div className="form-group" style={{ marginBottom: '1.5rem' }}>
         <label htmlFor="service-select" className="sr-only">
           What are you looking for?
         </label>
-        <select id="service-select" name="service" className="form-select" required defaultValue="" disabled={isSubmitting}>
+        <select id="service-select" name="service" className="premium-input" required defaultValue="" disabled={isSubmitting}>
           <option value="" disabled>
             What are you looking for?
           </option>
@@ -97,25 +100,26 @@ export default function ContactForm() {
           <option value="Other">Other / General Inquiry</option>
         </select>
       </div>
-      <div className="form-group">
-        <textarea name="message" placeholder="Tell us about your project..." required className="form-textarea" rows={4} disabled={isSubmitting} />
+
+      <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+        <textarea name="message" placeholder="Tell us about your project..." required className="premium-input" style={{ resize: 'vertical' }} rows={5} disabled={isSubmitting} />
       </div>
 
       {process.env.NEXT_PUBLIC_TURNSTILE_SITE && (
         <div className="form-group flex justify-center my-4">
-          <div className="p-1 rounded-xl bg-white/50 backdrop-blur-md border border-stone-200 shadow-sm">
+          <div className="p-1 rounded-xl bg-white/10 backdrop-blur-md border border-stone-200/20 shadow-sm">
             <Turnstile
               siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE}
               onSuccess={(token) => setTurnstileToken(token)}
               onError={() => setTurnstileToken("")}
               onExpire={() => setTurnstileToken("")}
-              options={{ theme: "light" }}
+              options={{ theme: "auto" }}
             />
           </div>
         </div>
       )}
 
-      <button type="submit" className="btn-primary btn-large btn-block" disabled={isSubmitting}>
+      <button type="submit" className="btn-honey" disabled={isSubmitting}>
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>
     </form>

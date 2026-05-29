@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import ParallaxController from "@/components/ParallaxController";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +10,6 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <ParallaxController />
       <section className="hero-section" style={{ minHeight: "50vh", alignItems: "center" }}>
         <div className="parallax-bg layer-1" data-speed="0.4"></div>
         <div className="container hero-content text-center">

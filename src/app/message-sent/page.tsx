@@ -1,12 +1,10 @@
 import Link from "next/link";
-import ParallaxController from "@/components/ParallaxController";
 
 export default function MessageSentPage() {
   return (
     <>
-      <ParallaxController />
-      <main style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div className="container" style={{ textAlign: "center", maxWidth: "600px" }}>
+      <main className="min-h-screen flex flex-col items-center justify-center py-20">
+        <div className="container max-w-2xl text-center">
           <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>✨</div>
           <h1 className="hero-title" style={{ fontSize: "2.5rem" }}>Message Received</h1>
           <p className="hero-subtitle" style={{ margin: "1.5rem 0 3rem 0" }}>

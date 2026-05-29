@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ParallaxController from "@/components/ParallaxController";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 export default function WebsitesPage() {
   return (
     <>
-      <ParallaxController />
       <section className="hero-section" style={{ minHeight: "70vh" }}>
         <div className="parallax-bg layer-1" data-speed="0.4"></div>
 

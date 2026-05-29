@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SmoothScroller from "@/components/SmoothScroller";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://abeevis.com"),
   title: "Abeevis | Digital Product Studio & AI Solutions",
   description:
     "Abeevis is a premier digital studio engineering custom software, high-performance websites, mobile apps, and AI-powered solutions for forward-thinking businesses. Structure for clarity in a chaotic digital world.",
@@ -54,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${lora.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${lora.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <meta
           httpEquiv="Content-Security-Policy"
@@ -62,9 +64,27 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <Script
+          id="theme-initializer"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var savedTheme = localStorage.getItem('abeevis-theme');
+                  var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  var theme = savedTheme || systemTheme;
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        <SmoothScroller>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScroller>
         
         <Script
           strategy="lazyOnload"
