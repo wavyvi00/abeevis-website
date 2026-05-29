@@ -778,6 +778,19 @@ img {
         flex-direction: column;
         text-align: center;
     }
+
+    /* Disable curtain finish on mobile for performance/UX */
+    /* Mobile browsers have address bar shifting bugs that break position: fixed bottom: 0 */
+    .site-footer {
+        position: relative;
+        z-index: 10;
+        height: auto;
+        padding: 3rem 0;
+    }
+
+    main {
+        margin-bottom: 0 !important;
+    }
 }
 
 /* Parallax Elements */

@@ -74,58 +74,43 @@ export default function Home() {
     }
 
     if (!isMobile) {
-      if (timelineLayout) {
-        // Background Parallax Elements
-        gsap.to('.scroll-orb-1', {
-          y: '30vh', x: '10vw', ease: 'none',
-          scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
-        });
-        gsap.to('.scroll-orb-2', {
-          y: '-30vh', x: '-10vw', ease: 'none',
-          scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
-        });
-        gsap.to('.scroll-hex', {
-          rotation: 180, y: '20vh', ease: 'none',
-          scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
-        });
-        gsap.to('.scroll-hex-2', {
-          rotation: -120, y: '-20vh', ease: 'none',
-          scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
-        });
-      }
-
-      // Animate each step card independently as it enters the center of the screen
-      const steps = gsap.utils.toArray('.timeline-card') as HTMLElement[];
-      steps.forEach((step) => {
-        gsap.to(step, {
-          opacity: 1,
-          scale: 1.02,
-          boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
-          borderColor: 'var(--color-accent)',
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: step,
-            start: "top 65%",
-            end: "bottom 35%",
-            toggleActions: "play reverse play reverse",
-          }
-        });
+      // Background Parallax Elements
+      gsap.to('.scroll-orb-1', {
+        y: '30vh', x: '10vw', ease: 'none',
+        scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
       });
-    } else {
-      // Simple fade in for mobile
-      const steps = gsap.utils.toArray('.timeline-card') as HTMLElement[];
-      steps.forEach((step) => {
-        gsap.from(step, {
-          opacity: 0,
-          y: 20,
-          scrollTrigger: {
-            trigger: step,
-            start: "top 80%",
-          }
-        });
+      gsap.to('.scroll-orb-2', {
+        y: '-30vh', x: '-10vw', ease: 'none',
+        scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
+      });
+      gsap.to('.scroll-hex', {
+        rotation: 180, y: '20vh', ease: 'none',
+        scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
+      });
+      gsap.to('.scroll-hex-2', {
+        rotation: -120, y: '-20vh', ease: 'none',
+        scrollTrigger: { trigger: processRef.current, start: "top bottom", end: "bottom top", scrub: 1 }
       });
     }
+
+    // Animate each step card independently as it enters the center of the screen
+    const steps = gsap.utils.toArray('.timeline-card') as HTMLElement[];
+    steps.forEach((step) => {
+      gsap.to(step, {
+        opacity: 1,
+        scale: 1.02,
+        boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
+        borderColor: 'var(--color-accent)',
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: step,
+          start: "top 65%",
+          end: "bottom 35%",
+          toggleActions: "play reverse play reverse",
+        }
+      });
+    });
   }, { scope: processRef });
 
   return (
