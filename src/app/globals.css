@@ -1821,4 +1821,27 @@ select.premium-input {
   .accordion-content {
     padding: 2rem;
   }
+
+  /* Portfolio Mobile Override */
+  .portfolio-track-section {
+    height: auto;
+    display: block;
+    padding: 0 1rem;
+    overflow: visible;
+  }
+  .portfolio-track {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 0;
+  }
+  .horizontal-card {
+    width: 100%;
+    max-width: 100%;
+    padding-right: 0;
+    margin-bottom: 3rem;
+  }
+  .mobile-spacer {
+    display: none;
+  }
 }
