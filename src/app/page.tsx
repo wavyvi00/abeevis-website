@@ -220,14 +220,14 @@ export default function Home() {
               whileHover={{ scale: 0.98, transition: { duration: 0.2 } }}
               className="bento-row-span-2"
             >
-              <Link href="/websites" className="bento-card bento-link-card"
+              <Link href="/portfolio" className="bento-card bento-link-card"
                     style={{ background: 'linear-gradient(to bottom, rgba(232,169,94,0.05) 0%, rgba(232,169,94,0.15) 100%)', height: '100%', justifyContent: 'flex-end', textDecoration: 'none' }}>
                 <div className="bento-number" style={{ left: '20px', right: 'auto', color: 'var(--color-accent)' }}>02</div>
                 
                 <h3 style={{ fontSize: '2rem', marginTop: '80px', color: 'var(--color-text)' }}>Websites</h3>
                 <p style={{ marginBottom: '24px' }}>Professional, high-performance web presences.</p>
                 <span className="bento-action">
-                  View Services <svg className="icon-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  View Our Work <svg className="icon-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </span>
               </Link>
             </motion.div>
