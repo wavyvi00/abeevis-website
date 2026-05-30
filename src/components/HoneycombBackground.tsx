@@ -102,8 +102,6 @@ export default function HoneycombBackground() {
     return hexList;
   }, [dimensions, smoothMouseX, smoothMouseY]);
 
-  if (dimensions.width === 0) return null;
-
   return (
     <div style={{
       position: "fixed",

@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import BlogClient from "./BlogClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,108 +9,45 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <section className="hero-section" style={{ minHeight: "50vh", alignItems: "center" }}>
-        <div className="parallax-bg layer-1" data-speed="0.4"></div>
-        <div className="container hero-content text-center">
-          <span className="eyebrow">Abeevis Insights</span>
-          <h1 className="hero-title">
-            Thoughts on <span className="text-accent">Digital Strategy.</span>
-          </h1>
-          <p className="hero-subtitle">Exploring the intersection of creativity, technology, and business growth.</p>
-        </div>
-        <div className="hero-visual parallax-layer" data-speed="0.1" style={{ opacity: 0.05 }}></div>
-      </section>
+      <BlogClient />
 
-      <section className="section">
-        <div className="container">
-          <div className="work-grid">
-            {/* Article 1 */}
-            <Link href="/blog/social-media" className="work-item">
-              <div className="work-visual" style={{ background: "transparent", height: "auto" }}>
-                <Image
-                  src="/assets/images/blog-social-media.webp"
-                  alt="Social Media Connections"
-                  width={1000}
-                  height={600}
-                  style={{ width: "100%", height: "auto", borderRadius: "8px", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
-                />
-              </div>
-              <div className="work-info" style={{ marginTop: "1rem" }}>
-                <span style={{ fontSize: "0.8rem", letterSpacing: "0.1em", color: "var(--color-accent-text)", fontWeight: 600, textTransform: "uppercase" }}>
-                  Growth
-                </span>
-                <h3 style={{ marginTop: "0.5rem" }}>Expanding Your Social Media Presence</h3>
-                <p style={{ textTransform: "none", marginTop: "0.5rem", lineHeight: 1.6 }}>
-                  How to build an authentic community without chasing algorithms.
-                </p>
-                <span className="btn-secondary" style={{ marginTop: "1rem", padding: "8px 16px", fontSize: "0.8rem", display: "inline-block" }}>
-                  Read Article
-                </span>
-              </div>
-            </Link>
-
-            {/* Article 2 */}
-            <Link href="/blog/importance-of-websites" className="work-item">
-              <div className="work-visual" style={{ background: "transparent", height: "auto" }}>
-                <Image
-                  src="/assets/images/blog-performance.webp"
-                  alt="High Performance Website Speed"
-                  width={1000}
-                  height={600}
-                  style={{ width: "100%", height: "auto", borderRadius: "8px", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
-                />
-              </div>
-              <div className="work-info" style={{ marginTop: "1rem" }}>
-                <span style={{ fontSize: "0.8rem", letterSpacing: "0.1em", color: "var(--color-accent-text)", fontWeight: 600, textTransform: "uppercase" }}>
-                  Technology
-                </span>
-                <h3 style={{ marginTop: "0.5rem" }}>Why Your Business Needs a High-Performance Website</h3>
-                <p style={{ textTransform: "none", marginTop: "0.5rem", lineHeight: 1.6 }}>
-                  Speed communicates trust. Why a slow site is costing you customers.
-                </p>
-                <span className="btn-secondary" style={{ marginTop: "1rem", padding: "8px 16px", fontSize: "0.8rem", display: "inline-block" }}>
-                  Read Article
-                </span>
-              </div>
-            </Link>
-
-            {/* Article 3 */}
-            <Link href="/blog/digital-presence" className="work-item">
-              <div className="work-visual" style={{ background: "transparent", height: "auto" }}>
-                <Image
-                  src="/assets/images/blog-strategy.webp"
-                  alt="Digital Strategy and Growth"
-                  width={1000}
-                  height={600}
-                  style={{ width: "100%", height: "auto", borderRadius: "8px", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
-                />
-              </div>
-              <div className="work-info" style={{ marginTop: "1rem" }}>
-                <span style={{ fontSize: "0.8rem", letterSpacing: "0.1em", color: "var(--color-accent-text)", fontWeight: 600, textTransform: "uppercase" }}>
-                  Strategy
-                </span>
-                <h3 style={{ marginTop: "0.5rem" }}>5 Tips for Business Owners on Digital Presence</h3>
-                <p style={{ textTransform: "none", marginTop: "0.5rem", lineHeight: 1.6 }}>
-                  Fundamental pillars for standing out in a crowded digital marketplace.
-                </p>
-                <span className="btn-secondary" style={{ marginTop: "1rem", padding: "8px 16px", fontSize: "0.8rem", display: "inline-block" }}>
-                  Read Article
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section bg-light text-center">
-        <div className="container">
-          <h2 className="section-title">Stay Updated</h2>
-          <p className="section-subtitle" style={{ marginBottom: "2rem" }}>
-            Get the latest insights delivered to your inbox.
+      <section className="section text-center" style={{ position: "relative", zIndex: 10, padding: "6rem 5vw 10rem 5vw" }}>
+        <div style={{
+            maxWidth: "700px",
+            margin: "0 auto",
+            padding: "4rem 2rem",
+            background: "rgba(20, 20, 20, 0.4)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            borderRadius: "24px",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)"
+        }}>
+          <h2 style={{ fontSize: "2.5rem", marginBottom: "1rem", color: "#fff", fontWeight: 700 }}>Stay in the loop</h2>
+          <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "2.5rem", fontSize: "1.1rem" }}>
+            Get exclusive insights on digital strategy, premium web design, and tech straight to your inbox.
           </p>
-          <a href="mailto:wavesparkinc@gmail.com" className="btn-primary">
-            Get Updates by Email
-          </a>
+          <form style={{ display: "flex", gap: "1rem", flexDirection: "row", justifyContent: "center", flexWrap: "wrap" }}>
+              <input 
+                  type="email" 
+                  placeholder="Enter your email address..."
+                  required
+                  style={{
+                      padding: "16px 24px",
+                      borderRadius: "12px",
+                      border: "1px solid rgba(255,255,255,0.15)",
+                      background: "rgba(0,0,0,0.6)",
+                      color: "#fff",
+                      width: "100%",
+                      maxWidth: "350px",
+                      outline: "none",
+                      fontSize: "1rem"
+                  }}
+              />
+              <button type="submit" className="btn-primary" style={{ padding: "16px 32px", border: "none", cursor: "pointer" }}>
+                  Subscribe
+              </button>
+          </form>
         </div>
       </section>
     </>
