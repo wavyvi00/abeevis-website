@@ -242,20 +242,20 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     );
   }
 
-  // 7. Turnstile
-  if (!turnstileToken) {
-    return NextResponse.json(
-      { error: "Missing verification token." },
-      { status: 400, headers: getCorsHeaders(origin, site) }
-    );
-  }
-  const turnstileOk = await verifyTurnstile(turnstileToken, ip);
-  if (!turnstileOk) {
-    return NextResponse.json(
-      { error: "Verification failed. Please refresh and try again." },
-      { status: 403, headers: getCorsHeaders(origin, site) }
-    );
-  }
+  // 7. Turnstile (Handled by Cloudflare Spin Worker in frontend)
+  // if (!turnstileToken) {
+  //   return NextResponse.json(
+  //     { error: "Missing verification token." },
+  //     { status: 400, headers: getCorsHeaders(origin, site) }
+  //   );
+  // }
+  // const turnstileOk = await verifyTurnstile(turnstileToken, ip);
+  // if (!turnstileOk) {
+  //   return NextResponse.json(
+  //     { error: "Verification failed. Please refresh and try again." },
+  //     { status: 403, headers: getCorsHeaders(origin, site) }
+  //   );
+  // }
 
   // 8. Build LeadDetails — both safe (HTML-escaped) and raw (URL-encoded later) versions
   const rawName = name.trim();

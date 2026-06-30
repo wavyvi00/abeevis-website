@@ -16,6 +16,29 @@ export default function ContactForm() {
     setIsSubmitting(true);
     setError("");
 
+    if (!turnstileToken) {
+      setError("Please complete the security check.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const workerRes = await fetch("https://turnstile-siteverify-abeevis-website.misfitsanctuary-art.workers.dev", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: turnstileToken }),
+      });
+      const workerData = await workerRes.json();
+      if (!workerData.success) {
+        throw new Error("Security validation failed.");
+      }
+    } catch (err: any) {
+      setError(err.message || "Security validation error.");
+      setIsSubmitting(false);
+      setTurnstileToken("");
+      return;
+    }
+
     const formData = new FormData(e.currentTarget);
     const data = {
       siteId: "abeevis",
@@ -113,7 +136,7 @@ export default function ContactForm() {
               onSuccess={(token) => setTurnstileToken(token)}
               onError={() => setTurnstileToken("")}
               onExpire={() => setTurnstileToken("")}
-              options={{ theme: "auto" }}
+              options={{ theme: "auto", action: "turnstile-spin-v1" }}
             />
           </div>
         </div>
